@@ -36,7 +36,9 @@ async function startEc2Instance(label, githubRegistrationToken) {
   const ec2 = new AWS.EC2();
 
   const userData = buildUserDataScript(githubRegistrationToken, label);
-
+  /////////// DIRTY
+  core.error('AAAAAA', config.keyName, "AA", config.input.keyName);
+  /////////// DIRTY
   const params = {
     ImageId: config.input.ec2ImageId,
     InstanceType: config.input.ec2InstanceType,
@@ -47,8 +49,8 @@ async function startEc2Instance(label, githubRegistrationToken) {
     SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
     TagSpecifications: config.tagSpecifications,
-    KeyName: config.input.keyName,
-    BlockDeviceMappings: [
+    KeyName: config.input.keyName || undefined,
+    BlockDeviceMappings: config.input.storageSize ? [
       {
         DeviceName: config.input.storagePath,
         Ebs: {
@@ -56,8 +58,7 @@ async function startEc2Instance(label, githubRegistrationToken) {
           VolumeSize: config.input.storageSize,
         },
       },
-    ],
-    
+    ] : undefined,
   };
 
   try {

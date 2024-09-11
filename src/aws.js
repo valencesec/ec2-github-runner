@@ -47,13 +47,13 @@ async function startEc2Instance(label, githubRegistrationToken) {
     SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
     TagSpecifications: config.tagSpecifications,
-    KeyName: config.keyName,
+    KeyName: config.input.keyName,
     BlockDeviceMappings: [
       {
-        DeviceName: config.storagePath,
+        DeviceName: config.input.storagePath,
         Ebs: {
           DeleteOnTermination: true,
-          VolumeSize: config.storageSize,
+          VolumeSize: config.input.storageSize,
         },
       },
     ],

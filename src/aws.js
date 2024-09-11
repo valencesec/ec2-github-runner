@@ -36,7 +36,9 @@ async function startEc2Instance(label, githubRegistrationToken) {
   const ec2 = new AWS.EC2();
 
   const userData = buildUserDataScript(githubRegistrationToken, label);
-
+  /////////// DIRTY
+  console.error('AAAAAA', config.keyName, "AA", config.input.keyName);
+  /////////// DIRTY
   const params = {
     ImageId: config.input.ec2ImageId,
     InstanceType: config.input.ec2InstanceType,
@@ -57,7 +59,6 @@ async function startEc2Instance(label, githubRegistrationToken) {
         },
       },
     ],
-    
   };
 
   try {

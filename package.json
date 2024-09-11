@@ -12,9 +12,9 @@
     "url": "https://github.com/machulav/ec2-github-runner/issues"
   },
   "scripts": {
-    "index": "node -r dotenv/config ./src/index.js",
-    "lint": "eslint ./src/*.js",
-    "package": "ncc build ./src/index.js"
+    "index": "NODE_OPTIONS=--openssl-legacy-provider node -r dotenv/config ./src/index.js",
+    "lint": "NODE_OPTIONS=--openssl-legacy-provider eslint ./src/*.js",
+    "package": "NODE_OPTIONS=--openssl-legacy-provider ncc build ./src/index.js"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",

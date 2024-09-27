@@ -38,6 +38,7 @@ export async function startEc2Instance(label: string, githubRegistrationToken: s
     SubnetId: config.subnetId,
     SecurityGroupIds: [config.securityGroupId],
     IamInstanceProfile: { Name: config.iamRoleName },
+    InstanceInitiatedShutdownBehavior: 'terminate',
     BlockDeviceMappings: [
       {
         DeviceName: '/dev/xvda',

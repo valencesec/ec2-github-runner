@@ -19,7 +19,7 @@ export async function startEc2Instance(label: string, githubRegistrationToken: s
   const ec2 = new AWS.EC2();
 
   const imagesResponse = await ec2.describeImages({ Owners: ['self'] }).promise();
-  const images = imagesResponse.Images?.filter((image) => image.Name?.startsWith(config.ec2ImagePrefix)) || [];
+  const images = imagesResponse.Images?.filter((image) => image.Name?.startsWith(config.ec2ImagePrefix) && image.State === 'available') || [];
   if (images.length === 0) {
     throw new Error('No images found');
   }
